@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText editUsername;
     EditText editPassword;
     TextView logFeedback;
+    TextView addFeedback;
 
     String dbUsername = "user_db_1429348_NoughtsCrosses";
     String dbPassword = "Passw0rd";
@@ -86,6 +87,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editPassword.setText("");
                     editUsername.setText("");
                 }
+                break;
+            case R.id.btnNewUser:
+                if (NewUser()) {
+                    addFeedback.setText("User Added");
+                }
+                else {
+                    addFeedback.setText("Adding User Failed");
+                }
+                break;
+            default:
+                break;
             //}
             //else {
             //   logFeedback.setText("Login Failed");
@@ -134,7 +146,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public boolean NewUser() {
-        String sql = "INSERT INTO Users VALUES( '" + editUsername.getText().toString() + "','" +
+        String sql;
+        sql = "INSERT INTO Users VALUES( '" + editUsername.getText().toString() + "','" +
                 editPassword.getText().toString() + "')";
         try {
             stmt.executeUpdate(sql);

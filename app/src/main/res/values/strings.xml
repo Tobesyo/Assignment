@@ -22,4 +22,5 @@
     <string name="NoughtsCrosses">Noughts and Crosses Image</string>
     <string name="Enter">Login</string>
     <string name="NewUser">New User</string>
+    <string name="txtNewUserFeedback">Add User Feedback</string>
 </resources>
