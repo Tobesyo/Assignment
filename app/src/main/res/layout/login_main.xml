@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="245dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="125dp">
+        android:layout_marginTop="125dp"
+        android:layout_weight="0.20">
 
         <TextView
             android:id="@+id/txtUsername"
@@ -61,13 +62,34 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
-            <Button
-                android:layout_width="wrap_content"
+            <TableLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/Login"
-                android:id="@+id/btnLogin"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Login"
+                        android:id="@+id/btnLogin"
+                        android:layout_gravity="right"
+                        android:layout_weight="0.20" />
+                </TableRow>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NewUser"
+                    android:id="@+id/btnNewUser"
+                    android:layout_gravity="right" />
+            </TableLayout>
+
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

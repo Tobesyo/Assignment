@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
@@ -21,6 +22,7 @@ import java.sql.Statement;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnLogin;
+    Button btnNewUser;
     EditText editUsername;
     EditText editPassword;
     TextView logFeedback;
@@ -35,10 +37,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.login_main);
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        editUsername = (EditText)findViewById(R.id.editUserName);
-        editPassword = (EditText)findViewById(R.id.editPassword);
-        logFeedback = (TextView)findViewById(R.id.txtLoginFeedback);
         btnLogin.setOnClickListener(this);
+        btnNewUser = (Button) findViewById(R.id.btnNewUser);
+        btnNewUser.setOnClickListener(this);
+        editUsername = (EditText) findViewById(R.id.editUserName);
+        editPassword = (EditText) findViewById(R.id.editPassword);
+        logFeedback = (TextView) findViewById(R.id.txtLoginFeedback);
         connectToDb();
 
 
@@ -66,22 +70,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return super.onOptionsItemSelected(item);
     }
 
+
     public void onClick(View v) {
 
-        //if(checkPassword()) {
-            logFeedback.setText("Login Successful");
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
-        //}
-        //else {
-         //   logFeedback.setText("Login Failed");
+        switch (v.getId()) {
 
-         //   if(editUsername.getText().toString().equals("test")) {
-       //     editUsername.setText("");
-       //     editPassword.setText("");
-           // }
+            case R.id.btnLogin:
+                if (checkPasswordDb()) {
+                    logFeedback.setText("Login Successful");
+                    Intent i = new Intent(this, MainActivity.class);
+                    startActivity(i);
+            }
+                else {
+                    logFeedback.setText("Login Failed");
+                    editPassword.setText("");
+                    editUsername.setText("");
+                }
+            //}
+            //else {
+            //   logFeedback.setText("Login Failed");
 
-      //  }
+            //   if(editUsername.getText().toString().equals("test")) {
+            //     editUsername.setText("");
+            //     editPassword.setText("");
+            // }
+
+            //  }
+        }
     }
 
     public void connectToDb() {
@@ -92,17 +107,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             logFeedback.setText("Database open");
             stmt = DbConn.createStatement();
 
-        }   catch (Exception e) {
+        } catch (Exception e) {
             logFeedback.setText("Connection Error" + e.getMessage());
         }
     }
 
-    public boolean checkPassword(){
+    public boolean checkPasswordDb() {
+        String sql;
+        sql = "Select * FROM Users WHERE username = '" + editUsername.getText().toString() + "'";
 
-        if (editUsername.getText().toString().equals("test") &&
-                (editPassword.getText().toString().equals("1234")))
-            return true;
-        else
+        try {
+            ResultSet rst = stmt.executeQuery(sql);
+
+            rst.next();
+
+            if (rst.getString("Password").equals(editPassword.getText().toString()))
+                return true;
+            else
+                return false;
+
+
+        } catch (Exception e) {
+            logFeedback.setText("connection error " + e.getMessage());
             return false;
+        }
+    }
+
+    public boolean NewUser() {
+        String sql = "INSERT INTO Users VALUES( '" + editUsername.getText().toString() + "','" +
+                editPassword.getText().toString() + "')";
+        try {
+            stmt.executeUpdate(sql);
+            return true;
+        }
+        catch (Exception e){
+            logFeedback.setText("New user inserted");
+            return false;
+        }
     }
 }

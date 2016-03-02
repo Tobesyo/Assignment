@@ -18,4 +18,8 @@
     <string name="login_text">Login</string>
     <string name="LoginFeedback">Login Feedback</string>
     <string name="Login">Login</string>
+    <string name="ImageButton">Image Button</string>
+    <string name="NoughtsCrosses">Noughts and Crosses Image</string>
+    <string name="Enter">Login</string>
+    <string name="NewUser">New User</string>
 </resources>
