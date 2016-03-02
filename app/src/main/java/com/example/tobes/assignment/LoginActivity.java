@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (rst.getString("Password").equals(editPassword.getText().toString()))
                 return true;
             else
-                return false;
+                return false; 
 
 
         } catch (Exception e) {
