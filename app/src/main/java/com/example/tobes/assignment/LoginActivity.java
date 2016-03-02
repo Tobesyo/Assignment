@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         return super.onOptionsItemSelected(item);
     }
-
+ 
 
     public void onClick(View v) {
 
